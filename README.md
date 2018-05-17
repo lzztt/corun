@@ -42,7 +42,7 @@ If we have 1 million of these tasks, to loop though all tasks, we need 3.3 to 6.
 $ ./corun --in=input.1000.txt --np=100 --out=output.1000.txt
 ```
 
-The input file contains task identifiers and commands
+The input file contains task identifiers and commands.
 ```bash
 $ head input.1000.txt 
 able_bay: bash check_domain.sh ablebay.com
@@ -55,4 +55,19 @@ again_bay: bash check_domain.sh againbay.com
 age_bay: bash check_domain.sh agebay.com
 ahead_bay: bash check_domain.sh aheadbay.com
 air_bay: bash check_domain.sh airbay.com
+```
+
+The output file contains task identifiers and outputs. The order of outputs may be different from the order of input. Thus we need the task idenfier.
+```
+$ head output.1000.txt 
+buy_bay: 2018-09-30
+apply_bay: 2027-02-06
+claim_bay: 2019-05-13
+dark_bay: 2019-07-09
+candy_bay: 2018-11-10
+carry_bay: 2019-02-18
+bus_bay: 2019-04-18
+above_bay: No match
+about_bay: No match
+able_bay: 2019-03-08
 ```
