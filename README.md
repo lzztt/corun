@@ -17,9 +17,9 @@ The above shows that test.com will be expired on 2019-06-17 and test_non_exist.c
 
 ## What if we have a large number of similar tasks
 
-We can put the one-liner into a script (check_domain.sh) and loop though with the input data.
+We can put the one-liner into [a script](corun/check_domain.sh) and loop through the input data.
 
-### Execution time for one task
+### The execution time of one task
 ```bash
 $ time bash check_domain.sh test.com
 2019-06-17
@@ -35,7 +35,7 @@ user    0m0.004s
 sys     0m0.004s
 ```
 
-If we have 1 million of these tasks, to loop though all tasks, we need 3.3 to 6.6 million seconds, which is 38 to 76 days.
+If we have 1 million of these tasks, to loop through all tasks, we need 3.3 to 6.6 million seconds, which is 38 to 76 days.
 
 ## We need to parallel these tasks, but without DDOS ourselves.
 ```bash
@@ -58,7 +58,7 @@ air_bay: bash check_domain.sh airbay.com
 ```
 
 The output file contains task identifiers and outputs. The order of outputs may be different from the order of input. Thus we need the task idenfier.
-```
+```bash
 $ head output.1000.txt 
 buy_bay: 2018-09-30
 apply_bay: 2027-02-06
