@@ -17,7 +17,7 @@ The above shows that test.com will be expired on 2019-06-17 and test_non_exist.c
 
 ## What if we have a large number of similar tasks
 
-We can put the one-liner into [a script](corun/check_domain.sh) and loop through the input data.
+We can put the one-liner into [a bash script](check_domain.sh) and loop through the input data.
 
 ### The execution time of one task
 ```bash
@@ -70,4 +70,14 @@ bus_bay: 2019-04-18
 above_bay: No match
 about_bay: No match
 able_bay: 2019-03-08
+```
+
+## How much time it can save with --np=100?
+When testing with 1000 example tasks and setting the maximum number of concurrent tasks equals to 100, the total execution time is 2.5 minutes. This includes the ramp-up and ramp-down time of the pipeline (the first 100 and last 100 tasks). It would take 1 to 2 hours if we run the tasks sequentially, based on the execution time of a single task (3.3 to 6.6 seconds).
+```bash
+ikki@dt:~/github/corun$ time ./corun --in=input.1000.txt --np=100 --out=/tmp/out1
+
+real    2m36.791s
+user    0m5.858s
+sys     0m3.411s
 ```
