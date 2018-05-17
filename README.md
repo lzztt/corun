@@ -35,7 +35,7 @@ user    0m0.004s
 sys     0m0.004s
 ```
 
-If we have 1 million of these tasks, to loop through all tasks, we need 3.3 to 6.6 million seconds, which is 38 to 76 days.
+If we have 1 million of these tasks, we will need 3.3 to 6.6 million seconds (38 to 76 days) to loop through all tasks.
 
 ## We need to parallel these tasks, but without DDOS ourselves.
 ```bash
@@ -73,9 +73,9 @@ able_bay: 2019-03-08
 ```
 
 ## How much time it can save with --np=100?
-When testing with 1000 example tasks and setting the maximum number of concurrent tasks equals to 100, the total execution time is 2.5 minutes. This includes the ramp-up and ramp-down time of the pipeline (the first 100 and last 100 tasks). It would take 1 to 2 hours if we run the tasks sequentially, based on the execution time of a single task (3.3 to 6.6 seconds).
+When testing with 1000 example tasks and setting the maximum number of concurrent tasks equals to 100, the total execution time is 2.5 minutes. This includes the ramp-up and ramp-down time of the pipeline (the first 100 and last 100 tasks). It would take 1 to 2 hours if we run these tasks sequentially, based on the execution time of a single task (3.3 to 6.6 seconds).
 ```bash
-$ time ./corun --np=100 --in=input.1000.txt -out=output.1000.txt
+$ time ./corun --np=100 --in=input.1000.txt --out=output.1000.txt
 
 real    2m36.791s
 user    0m5.858s
