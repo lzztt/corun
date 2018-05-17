@@ -7,13 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"regexp"
 	"strings"
-)
-
-var (
-	EXPIRY  *regexp.Regexp = regexp.MustCompile("Expir[a-z]* *Date: *[0-9-]*")
-	NOMATCH string         = "No match"
 )
 
 func shell(cmd []string) string {
