@@ -15,7 +15,7 @@ func shell(cmd []string) string {
 	return strings.Trim(string(stdout), " \n")
 }
 
-func processLine(line string, output chan string) {
+func processLine(line string, output chan<- string) {
 	pair := strings.SplitN(line, ": ", 2)
 	switch n := len(pair); n {
 	case 2:
@@ -28,7 +28,7 @@ func processLine(line string, output chan string) {
 	}
 }
 
-func coRun(input chan string, output chan string, count int, process func(string, chan string)) {
+func coRun(input <-chan string, output chan<- string, count int, process func(string, chan<- string)) {
 	buf := make(chan string, count)
 	n := 0
 
@@ -55,7 +55,7 @@ func coRun(input chan string, output chan string, count int, process func(string
 	close(output)
 }
 
-func readFileToChannel(fileName string, lines chan string) {
+func readFileToChannel(fileName string, lines chan<- string) {
 	file, err := os.Open(fileName)
 	if err != nil {
 		log.Fatal(err)
@@ -75,7 +75,7 @@ func readFileToChannel(fileName string, lines chan string) {
 	close(lines)
 }
 
-func writeChannelToFile(fileName string, lines chan string) {
+func writeChannelToFile(fileName string, lines <-chan string) {
 	file, err := os.Create(fileName)
 	if err != nil {
 		log.Fatal(err)
