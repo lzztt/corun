@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -32,19 +31,14 @@ func coRun(input <-chan string, output chan<- string, count int, process func(st
 	buf := make(chan string, count)
 	n := 0
 
-	for input != nil {
+	for line := range input {
 		if n == count {
 			output <- <-buf
 			n--
 		}
 
-		line, ok := <-input
-		if ok {
-			go process(line, buf)
-			n++
-		} else {
-			input = nil
-		}
+		go process(line, buf)
+		n++
 	}
 
 	for ; n > 0; n-- {
@@ -83,18 +77,14 @@ func writeChannelToFile(fileName string, lines <-chan string) {
 	defer file.Close()
 
 	writer := bufio.NewWriter(file)
-	for lines != nil {
-		line, ok := <-lines
-		if ok {
-			_, err := fmt.Fprintln(writer, line)
-			if err != nil {
-				log.Fatal(err)
-			}
-		} else {
-			lines = nil
+	defer writer.Flush()
+
+	for line := range lines {
+		_, err := writer.WriteString(line + "\n")
+		if err != nil {
+			log.Fatal(err)
 		}
 	}
-	writer.Flush()
 }
 
 func main() {
